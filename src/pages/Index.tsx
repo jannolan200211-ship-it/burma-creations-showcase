@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { ProjectsGallery } from "@/components/ProjectsGallery";
 import BlogList from '@/components/BlogList';
+import ContactForm from '@/components/ContactForm';
+import { Toaster } from '@/components/ui/toaster';
 
 const Index = () => {
   return (
@@ -43,6 +45,12 @@ const Index = () => {
                 className="px-8 py-3 border-2 border-primary text-primary rounded-full font-semibold hover:bg-primary hover:text-primary-foreground transition-colors"
               >
                 Read Blog
+              </a>
+              <a
+                href="#contact"
+                className="px-8 py-3 border-2 border-accent text-accent rounded-full font-semibold hover:bg-accent hover:text-primary-foreground transition-colors"
+              >
+                Get In Touch
               </a>
             </motion.div>
           </motion.div>
@@ -90,6 +98,13 @@ const Index = () => {
           <BlogList />
         </div>
       </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="bg-gradient-mesh/5">
+        <ContactForm />
+      </section>
+
+      <Toaster />
     </div>
   );
 };
