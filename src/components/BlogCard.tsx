@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Calendar } from 'lucide-react';
 import { Blog } from '@/types/blog';
 import { Link } from 'react-router-dom';
+import { LazyImage } from '@/components/LazyImage';
 
 interface BlogCardProps {
   blog: Blog;
@@ -36,12 +37,10 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, index }) => {
         <article className="bg-card rounded-xl overflow-hidden shadow-soft hover:shadow-large transition-all duration-300 border border-border">
           {blog.image_url && (
             <div className="relative h-48 overflow-hidden">
-              <motion.img
+              <LazyImage
                 src={blog.image_url}
                 alt={blog.title}
-                className="w-full h-full object-cover"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>

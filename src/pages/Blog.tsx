@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import BlogList from "@/components/BlogList";
+import OptimizedBlogList from "@/components/OptimizedBlogList";
 
 const Blog = () => {
   return (
@@ -23,7 +23,7 @@ const Blog = () => {
             </p>
           </div>
           
-          <BlogList />
+          <OptimizedBlogList />
         </motion.div>
       </section>
     </div>

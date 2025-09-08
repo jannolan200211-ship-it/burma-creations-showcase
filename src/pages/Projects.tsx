@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ProjectsGallery } from "@/components/ProjectsGallery";
+import { OptimizedProjectsGallery } from "@/components/OptimizedProjectsGallery";
 
 const Projects = () => {
   return (
@@ -23,7 +23,7 @@ const Projects = () => {
             </p>
           </div>
           
-          <ProjectsGallery />
+          <OptimizedProjectsGallery />
         </motion.div>
       </section>
     </div>

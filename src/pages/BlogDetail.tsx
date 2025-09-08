@@ -7,6 +7,7 @@ import { Calendar, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Separator } from '@/components/ui/separator';
+import { LazyImage } from '@/components/LazyImage';
 
 const BlogDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -77,9 +78,9 @@ const BlogDetail: React.FC = () => {
           <h1 className="text-2xl font-bold text-foreground mb-4">
             {error || 'Blog post not found'}
           </h1>
-          <Button onClick={() => navigate('/')} variant="default">
+          <Button onClick={() => navigate('/blog')} variant="default">
             <ArrowLeft className="mr-2 w-4 h-4" />
-            Back to Home
+            Back to Blog
           </Button>
         </div>
       </div>
@@ -100,7 +101,7 @@ const BlogDetail: React.FC = () => {
           transition={{ duration: 0.3 }}
         >
           <Button
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/blog')}
             variant="ghost"
             className="mb-8 hover:bg-accent"
           >
@@ -117,7 +118,7 @@ const BlogDetail: React.FC = () => {
               transition={{ duration: 0.5 }}
               className="relative h-64 md:h-96 rounded-xl overflow-hidden mb-8"
             >
-              <img
+              <LazyImage
                 src={blog.image_url}
                 alt={blog.title}
                 className="w-full h-full object-cover"

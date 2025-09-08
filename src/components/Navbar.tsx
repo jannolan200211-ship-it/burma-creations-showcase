@@ -3,11 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Code2, Home, User, Briefcase, BookOpen, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { usePrefetch } from "@/hooks/usePrefetch";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { prefetchProjects, prefetchBlogs } = usePrefetch();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,7 +59,14 @@ const Navbar = () => {
               const isActive = location.pathname === item.path;
               
               return (
-                <Link key={item.path} to={item.path}>
+                <Link 
+                  key={item.path} 
+                  to={item.path}
+                  onMouseEnter={() => {
+                    if (item.path === "/projects") prefetchProjects();
+                    if (item.path === "/blog") prefetchBlogs();
+                  }}
+                >
                   <Button
                     variant="ghost"
                     className={`relative px-4 py-2 transition-all duration-300 ${

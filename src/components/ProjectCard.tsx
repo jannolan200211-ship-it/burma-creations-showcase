@@ -3,6 +3,7 @@ import { Project } from "@/types/project";
 import { ExternalLink, Github, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
+import { LazyImage } from "@/components/LazyImage";
 
 interface ProjectCardProps {
   project: Project;
@@ -26,12 +27,10 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
         <div className="relative overflow-hidden rounded-2xl bg-card shadow-[var(--shadow-medium)] transition-all duration-300 hover:shadow-[var(--shadow-large)] hover:shadow-primary/10">
           {/* Image Container */}
           <div className="relative aspect-[16/10] overflow-hidden">
-            <motion.img
+            <LazyImage
               src={project.image_url}
               alt={project.title}
-              className="h-full w-full object-cover"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.4 }}
+              className="h-full w-full object-cover transition-transform duration-400 group-hover:scale-105"
             />
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />

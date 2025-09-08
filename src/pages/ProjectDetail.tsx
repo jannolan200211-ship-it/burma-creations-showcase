@@ -1,48 +1,16 @@
-import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { supabase } from "@/integrations/supabase/client";
-import { Project } from "@/types/project";
 import { ArrowLeft, ExternalLink, Github, Calendar, Tag } from "lucide-react";
 import { Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
+import { LazyImage } from "@/components/LazyImage";
+import { useProjectDetail } from "@/hooks/useSupabaseQuery";
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const [project, setProject] = useState<Project | null>(null);
-  const [loading, setLoading] = useState(true);
-  const { toast } = useToast();
-
-  useEffect(() => {
-    if (id) {
-      fetchProject();
-    }
-  }, [id]);
-
-  const fetchProject = async () => {
-    try {
-      const { data, error } = await supabase
-        .from("projects")
-        .select("*")
-        .eq("id", id)
-        .single();
-
-      if (error) throw error;
-
-      setProject(data);
-    } catch (error) {
-      console.error("Error fetching project:", error);
-      toast({
-        title: "Error",
-        description: "Failed to load project details.",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { data: project, isLoading: loading, error: queryError } = useProjectDetail(id);
+  const error = queryError ? "Failed to load project" : (!project && !loading) ? "Project not found" : null;
 
   if (loading) {
     return (
@@ -52,15 +20,15 @@ const ProjectDetail = () => {
     );
   }
 
-  if (!project) {
+  if (error || !project) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center">
-        <h1 className="mb-4 text-2xl font-bold">Project not found</h1>
+        <h1 className="mb-4 text-2xl font-bold">{error || "Project not found"}</h1>
         <Button asChild>
-          <Link to="/">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Gallery
-          </Link>
+            <Link to="/projects">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Projects
+            </Link>
         </Button>
       </div>
     );
@@ -85,9 +53,9 @@ const ProjectDetail = () => {
             variant="ghost"
             className="mb-6 hover:bg-primary/10"
           >
-            <Link to="/">
+            <Link to="/projects">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Gallery
+              Back to Projects
             </Link>
           </Button>
 
@@ -138,7 +106,7 @@ const ProjectDetail = () => {
             >
               {/* Project Image */}
               <div className="mb-8 overflow-hidden rounded-2xl shadow-[var(--shadow-large)]">
-                <img
+                <LazyImage
                   src={project.image_url}
                   alt={project.title}
                   className="h-auto w-full"
