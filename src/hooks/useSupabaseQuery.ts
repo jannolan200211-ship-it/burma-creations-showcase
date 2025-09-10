@@ -85,3 +85,21 @@ export const useProjectDetail = (id: string | undefined) => {
     retry: 2,
   });
 };
+
+export const useProfile = () => {
+  return useQuery({
+    queryKey: ["profile"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("profile")
+        .select("*")
+        .maybeSingle();
+
+      if (error) throw error;
+      return data;
+    },
+    staleTime: 10 * 60 * 1000, // Data is fresh for 10 minutes
+    gcTime: 30 * 60 * 1000, // Cache for 30 minutes
+    retry: 2,
+  });
+};
