@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles, Users, Code, Rocket } from "lucide-react";
+import { ArrowRight, Sparkles, Users, Code, Rocket, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Home = () => {
@@ -25,30 +25,52 @@ const Home = () => {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center">
-        <div className="absolute inset-0 bg-gradient-mesh opacity-20" />
-        
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.5 }}
-            transition={{ duration: 2 }}
-            className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/20 rounded-full blur-3xl"
-          />
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.5 }}
-            transition={{ duration: 2, delay: 0.5 }}
-            className="absolute bottom-1/4 -right-20 w-96 h-96 bg-accent/20 rounded-full blur-3xl"
-          />
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?q=80&w=1920)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background"></div>
         </div>
+        
+        {/* Animated Background Elements */}
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="absolute top-1/4 -left-20 w-64 h-64 md:w-96 md:h-96 bg-gradient-primary rounded-full blur-3xl opacity-30"
+        />
+        <motion.div
+          animate={{
+            scale: [1.2, 1, 1.2],
+            rotate: [360, 180, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="absolute bottom-1/4 -right-20 w-64 h-64 md:w-96 md:h-96 bg-gradient-sunset rounded-full blur-3xl opacity-30"
+        />
 
+        {/* Hero Content */}
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-center max-w-5xl mx-auto"
           >
             <motion.div
@@ -59,43 +81,52 @@ const Home = () => {
             >
               <Sparkles className="h-4 w-4 text-primary" />
               <span className="text-sm font-medium text-primary">
-                Empowering Myanmar's Digital Future
+                Building Myanmar's Digital Future
               </span>
             </motion.div>
 
-            <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6">
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+            >
               <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-                Myanmar No-Code
+                Empowering Myanmar Youth
               </span>
               <br />
-              <span className="text-foreground">Community</span>
-            </h1>
+              <span className="text-foreground">with No-Code Innovation</span>
+            </motion.h1>
 
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              Join the revolution. Build the future. No coding required. 
-              We're empowering tech-savvy Myanmar youth to create amazing digital products.
-            </p>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-10 max-w-3xl mx-auto px-4"
+            >
+              Build apps and communities without coding – join the revolution for Myanmar's future
+            </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center px-4"
             >
               <Link to="/projects">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground font-semibold px-8 py-6 rounded-full group"
+                  className="w-full sm:w-auto bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground font-semibold px-6 md:px-8 py-6 rounded-full group hover:shadow-glow transition-all duration-300"
                 >
                   Explore Projects
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-2 transition-transform" />
                 </Button>
               </Link>
               <Link to="/about">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-2 border-primary/20 hover:border-primary/40 hover:bg-primary/5 font-semibold px-8 py-6 rounded-full"
+                  className="w-full sm:w-auto border-2 border-primary/20 hover:border-primary/40 hover:bg-primary/5 font-semibold px-6 md:px-8 py-6 rounded-full transition-all duration-300"
                 >
                   Learn More
                 </Button>
@@ -104,24 +135,13 @@ const Home = () => {
           </motion.div>
         </div>
 
-        {/* Scroll indicator */}
+        {/* Scroll Indicator */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
         >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-            className="w-6 h-10 border-2 border-primary/40 rounded-full flex justify-center"
-          >
-            <motion.div
-              animate={{ y: [0, 15, 0] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-              className="w-1.5 h-1.5 bg-primary rounded-full mt-2"
-            />
-          </motion.div>
+          <ChevronDown className="h-6 w-6 text-muted-foreground/70" />
         </motion.div>
       </section>
 
